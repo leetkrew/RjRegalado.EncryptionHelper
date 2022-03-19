@@ -4,7 +4,7 @@ EncryptionHelper is a library that provides an interface to encrypt and decrypt 
 
 March 19, 2022
 
-- Encryption and decryption of plain text using PFX certificate as a private key, and CRT certificate as a public key. Both keys allow the user to encrypt plain text, however, the only private key has the capability to decrypt an encrypted text.
+- Encryption and decryption of plain text using PFX certificate as a private key, and CRT certificate as a public key. Both keys allow the user to encrypt plain text. As designed, only the private key has the capability to decrypt an encrypted text.
 - Implementation of System.Security.Cryptography and System.Security.Cryptography.X509Certificates.
 
 
