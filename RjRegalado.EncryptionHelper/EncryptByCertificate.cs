@@ -14,12 +14,11 @@ namespace RjRegalado.EncryptionHelper
             https://www.scottbrady91.com/openssl/creating-rsa-keys-using-openssl
             https://www.ibm.com/docs/en/arl/9.7?topic=certification-extracting-certificate-keys-from-pfx-file        
 
-        Generate Certificates
+        Generate Certificates:
             openssl genrsa -out private-key.pem 3072
             openssl req -new -x509 -key private-key.pem -out cert.pem -days 7300
             openssl pkcs12 -export -inkey private-key.pem -in cert.pem -out cert.pfx
             openssl pkcs12 -in cert.pfx -clcerts -nokeys -out public.crt
-        
     */
 
     public interface IEncryptByCertificate : IDisposable
