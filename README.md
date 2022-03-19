@@ -7,4 +7,4 @@ March 19, 2022
 - Implementation of System.Security.Cryptography and System.Security.Cryptography.X509Certificates.
 
 
-More encryption and decryption method to come.
+More encryption and decryption methods to come.
