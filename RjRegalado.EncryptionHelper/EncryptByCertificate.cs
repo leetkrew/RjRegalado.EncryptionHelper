@@ -29,8 +29,8 @@ namespace RjRegalado.EncryptionHelper
         string PrivateKey { get; set; }
         string PublicKey { get; set; }
         void Decrypt();
-        void Demo(ref BackgroundWorker bg);
-        void Demo(string plainText, string publicKey, string privateKey, ref BackgroundWorker bg);
+        void Execute(ref BackgroundWorker bg);
+        void Execute(string plainText, string publicKey, string privateKey, string passKey, ref BackgroundWorker bg);
         void Encrypt();
     }
 
@@ -46,7 +46,7 @@ namespace RjRegalado.EncryptionHelper
         public string PlainText { get; set; }
         public string PrivateKey { get; set; }
         public string PublicKey { get; set; }
-        
+
         /// <summary>
         /// Decrypts text using a private key
         /// </summary>
@@ -72,7 +72,7 @@ namespace RjRegalado.EncryptionHelper
         /// Demonstration of EncryptByCertificate
         /// </summary>
         /// <param name="bg"></param>
-        public void Demo(ref BackgroundWorker bg)
+        public void Execute(ref BackgroundWorker bg)
         {
             if (bg.CancellationPending) return;
 
@@ -92,15 +92,16 @@ namespace RjRegalado.EncryptionHelper
         /// <param name="plainText"></param>
         /// <param name="publicKey"></param>
         /// <param name="privateKey"></param>
+        /// <param name="passKey"></param>
         /// <param name="bg"></param>
-        public void Demo(string plainText, string publicKey, string privateKey, ref BackgroundWorker bg)
+        public void Execute(string plainText, string publicKey, string privateKey, string passKey, ref BackgroundWorker bg)
         {
             if (bg.CancellationPending) return;
 
             this.PlainText = plainText;
             this.PublicKey = publicKey;
             this.PrivateKey = privateKey;
-            this.Passkey = Passkey;
+            this.Passkey = passKey;
 
             Encrypt();
             bg.ReportProgress(0, $"Encrypted Text: {this.EncryptedText}");
@@ -127,13 +128,13 @@ namespace RjRegalado.EncryptionHelper
         /// <returns></returns>
         public void Encrypt()
         {
-            
+
             var collection = new X509Certificate2Collection();
             collection.Import(this.PublicKey, this.Passkey, X509KeyStorageFlags.PersistKeySet);
             var certificate = collection[0];
             var publicKey = certificate.PublicKey.Key as RSACryptoServiceProvider;
             var bytesData = Encoding.UTF8.GetBytes(this.PlainText);
-            
+
             if (publicKey == null) this.EncryptedText = "error";
             if (publicKey == null) return;
             var encryptedData = publicKey.Encrypt(bytesData, false);

@@ -84,7 +84,8 @@ namespace RjRegalado.EncryptionHelper.UI
                         demo.PublicKey = "./Certificates/EncryptByCertificate/public.crt";
                         demo.PrivateKey = "./Certificates/EncryptByCertificate/cert.pfx";
                         demo.Passkey = "password";
-                        demo.Demo(ref _bg);
+                        demo.Execute(ref _bg);
+                        //demo.Execute(txtPlainText.Text, "./Certificates/EncryptByCertificate/public.crt", "./Certificates/EncryptByCertificate/cert.pfx", "password", ref _bg);
                     }
                 }
                 catch (Exception ex)
