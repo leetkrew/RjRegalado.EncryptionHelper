@@ -1,4 +1,5 @@
 Encryption and Decryption using C#
+
 EncryptionHelper is a library that provides an interface to encrypt and decrypt plain text. Written by a Filipino developer, RJ Regalado (www.rjregalado.com).
 
 March 19, 2022
