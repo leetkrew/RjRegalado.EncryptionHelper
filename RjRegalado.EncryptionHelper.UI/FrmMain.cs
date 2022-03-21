@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows.Forms;
-
+using RjRegalado.EncryptionHelper.UI.Helpers;
 
 namespace RjRegalado.EncryptionHelper.UI
 {
@@ -11,6 +13,8 @@ namespace RjRegalado.EncryptionHelper.UI
     public partial class FrmMain : Form
     {
         private BackgroundWorker _bg = new BackgroundWorker();
+        private List<EnumHelper> _operations = new List<EnumHelper>();
+        private string _selectedOperation = string.Empty;
 
         /// <summary>
         /// Creates an instance of FrmMain
@@ -37,8 +41,11 @@ namespace RjRegalado.EncryptionHelper.UI
         /// <param name="e"></param>
         private void btnExecute_Click(object sender, EventArgs e)
         {
+            _selectedOperation = cboOperations.SelectedItem.ToString();
+            cboOperations.Enabled = false;
             btnExecute.Enabled = false;
             btnCancel.Enabled = true;
+            txtLogs.Text = "";
             _bg.RunWorkerAsync();
         }
 
@@ -49,6 +56,15 @@ namespace RjRegalado.EncryptionHelper.UI
         /// <param name="e"></param>
         private void FrmMain_Load(object sender, EventArgs e)
         {
+            _operations = EnumHelper.ToList<EnumHelper.OperationMethods>();
+            foreach (var item in _operations)
+            {
+                cboOperations.Items.Add(item.Description);
+            }
+
+            cboOperations.SelectedItem = _operations.First().Description;
+
+
             btnCancel.Enabled = false;
             _bg.WorkerSupportsCancellation = true;
 
@@ -65,11 +81,12 @@ namespace RjRegalado.EncryptionHelper.UI
                 progressBar1.Value = args.ProgressPercentage;
             };
 
-            _bg.RunWorkerCompleted += delegate (object o, RunWorkerCompletedEventArgs args)
+            _bg.RunWorkerCompleted += delegate
             {
                 txtLogs.AppendText("--------------------");
                 txtLogs.AppendText(Environment.NewLine);
                 btnExecute.Enabled = true;
+                cboOperations.Enabled = true;
                 btnCancel.Enabled = false;
                 _bg.Dispose();
             };
@@ -78,14 +95,55 @@ namespace RjRegalado.EncryptionHelper.UI
             {
                 try
                 {
-                    using (IEncryptByCertificate demo = new EncryptByCertificate())
+                    _bg.ReportProgress(0, _selectedOperation);
+
+                    var selectedId = _operations.First(x => x.Description == _selectedOperation).Id;
+
+                    switch (selectedId)
                     {
-                        demo.PlainText = txtPlainText.Text;
-                        demo.PublicKey = "./Certificates/EncryptByCertificate/public.crt";
-                        demo.PrivateKey = "./Certificates/EncryptByCertificate/cert.pfx";
-                        demo.Passkey = "password";
-                        demo.Execute(ref _bg);
-                        //demo.Execute(txtPlainText.Text, "./Certificates/EncryptByCertificate/public.crt", "./Certificates/EncryptByCertificate/cert.pfx", "password", ref _bg);
+                        case (int)EnumHelper.OperationMethods.EncryptByCertificate:
+                            using (IEncryptByCertificate demo = new EncryptByCertificate())
+                            {
+                                demo.PlainText = txtPlainText.Text;
+                                demo.PublicKey = "./Certificates/EncryptByCertificate/public.crt";
+                                demo.Passkey = "password";
+                                demo.ExecuteEncrypt(ref _bg);
+                                //demo.ExecuteEncrypt(txtPlainText.Text, "./Certificates/EncryptByCertificate/public.crt", "password", ref _bg);
+                            }
+                            break;
+                        case (int)EnumHelper.OperationMethods.DecryptByCertificate:
+                            using (IEncryptByCertificate demo = new EncryptByCertificate())
+                            {
+                                demo.EncryptedText = txtPlainText.Text;
+                                demo.PrivateKey = "./Certificates/EncryptByCertificate/cert.pfx";
+                                demo.Passkey = "password";
+                                demo.ExecuteDecrypt(ref _bg);
+                                //demo.ExecuteDecrypt(txtPlainText.Text, "./Certificates/EncryptByCertificate/cert.pfx", "password", ref _bg);
+                            }
+                            break;
+                        case (int)EnumHelper.OperationMethods.EncryptByTripleDes:
+                            using (ITripleDes demo = new TripleDes())
+                            {
+                                demo.PlainText = txtPlainText.Text;
+                                demo.Passkey = "password";
+                                demo.Iv = "password";
+                                demo.ExecuteEncrypt(ref _bg);
+                                //demo.ExecuteEncrypt(txtPlainText.Text, "password", "password", ref _bg);
+                            }
+                            break;
+                        case (int)EnumHelper.OperationMethods.DecryptByTripleDes:
+                            using (ITripleDes demo = new TripleDes())
+                            {
+                                demo.EncryptedText = txtPlainText.Text;
+                                demo.Passkey = "password";
+                                demo.Iv = "password";
+                                demo.ExecuteDecrypt(ref _bg);
+                                //demo.ExecuteDecrypt(txtPlainText.Text, "password", "password", ref _bg);
+                            }
+                            break;
+
+                        default:
+                            throw new Exception("Not implemented");
                     }
                 }
                 catch (Exception ex)
