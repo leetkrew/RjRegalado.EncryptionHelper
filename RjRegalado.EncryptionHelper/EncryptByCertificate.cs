@@ -104,7 +104,7 @@ namespace RjRegalado.EncryptionHelper
         }
 
         /// <summary>
-        /// Demonstration of EncryptByCertificate
+        /// Decrypts text using private key
         /// </summary>
         /// <param name="bg"></param>
         public void ExecuteDecrypt(ref BackgroundWorker bg)
@@ -117,7 +117,7 @@ namespace RjRegalado.EncryptionHelper
         }
 
         /// <summary>
-        /// Demonstration of EncryptByCertificate
+        /// Decrypts text using private key
         /// </summary>
         /// <param name="encryptedText"></param>
         /// <param name="privateKey"></param>
@@ -136,7 +136,7 @@ namespace RjRegalado.EncryptionHelper
         }
 
         /// <summary>
-        /// Demonstration of EncryptByCertificate
+        /// Encrypts text using public certificate
         /// </summary>
         /// <param name="bg"></param>
         public void ExecuteEncrypt(ref BackgroundWorker bg)
@@ -149,7 +149,7 @@ namespace RjRegalado.EncryptionHelper
         }
 
         /// <summary>
-        /// Demonstration of EncryptByCertificate
+        /// Encrypts text using public certificate
         /// </summary>
         /// <param name="plainText"></param>
         /// <param name="publicKey"></param>

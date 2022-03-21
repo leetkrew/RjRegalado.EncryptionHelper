@@ -121,6 +121,27 @@ namespace RjRegalado.EncryptionHelper.UI
                                 //demo.ExecuteDecrypt(txtPlainText.Text, "./Certificates/EncryptByCertificate/cert.pfx", "password", ref _bg);
                             }
                             break;
+                        case (int)EnumHelper.OperationMethods.EncryptByTripleDes:
+                            using (ITripleDes demo = new TripleDes())
+                            {
+                                demo.PlainText = txtPlainText.Text;
+                                demo.Passkey = "password";
+                                demo.Iv = "password";
+                                demo.ExecuteEncrypt(ref _bg);
+                                //demo.ExecuteEncrypt(txtPlainText.Text, "password", "password", ref _bg);
+                            }
+                            break;
+                        case (int)EnumHelper.OperationMethods.DecryptByTripleDes:
+                            using (ITripleDes demo = new TripleDes())
+                            {
+                                demo.EncryptedText = txtPlainText.Text;
+                                demo.Passkey = "password";
+                                demo.Iv = "password";
+                                demo.ExecuteDecrypt(ref _bg);
+                                //demo.ExecuteDecrypt(txtPlainText.Text, "password", "password", ref _bg);
+                            }
+                            break;
+
                         default:
                             throw new Exception("Not implemented");
                     }

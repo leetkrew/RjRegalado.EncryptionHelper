@@ -19,6 +19,8 @@ namespace RjRegalado.EncryptionHelper.UI.Helpers
         {
             [Description("Encrypt by Certificate")] EncryptByCertificate = 1,
             [Description("Decrypt by Certificate")] DecryptByCertificate = 2,
+            [Description("Encrypt by TripleDes")] EncryptByTripleDes = 3,
+            [Description("Decrypt by TripleDes")] DecryptByTripleDes = 4,
         }
 
         public enum ListAll
