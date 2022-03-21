@@ -14,13 +14,9 @@ namespace RjRegalado.EncryptionHelper
         string Passkey { get; set; }
         string PlainText { get; set; }
         void Decrypt();
-
         void Encrypt();
-
         void ExecuteDecrypt(string plainText, string passKey, string iv, ref BackgroundWorker bg);
-
         void ExecuteDecrypt(ref BackgroundWorker bg);
-
         void ExecuteEncrypt(ref BackgroundWorker bg);
         void ExecuteEncrypt(string plainText, string passKey, string iv, ref BackgroundWorker bg);
     }

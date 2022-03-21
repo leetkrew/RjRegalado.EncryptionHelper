@@ -28,15 +28,10 @@ namespace RjRegalado.EncryptionHelper
         string PrivateKey { get; set; }
         string PublicKey { get; set; }
         string EncryptedText { get; set; }
-
         void Decrypt();
-
         void Encrypt();
-
         void ExecuteDecrypt(string encryptedText, string privateKey, string passKey, ref BackgroundWorker bg);
-
         void ExecuteDecrypt(ref BackgroundWorker bg);
-
         void ExecuteEncrypt(ref BackgroundWorker bg);
         void ExecuteEncrypt(string plainText, string publicKey, string passKey, ref BackgroundWorker bg);
     }
