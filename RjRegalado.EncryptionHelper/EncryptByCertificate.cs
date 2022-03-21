@@ -119,8 +119,7 @@ namespace RjRegalado.EncryptionHelper
         /// <summary>
         /// Demonstration of EncryptByCertificate
         /// </summary>
-        /// <param name="plainText"></param>
-        /// <param name="publicKey"></param>
+        /// <param name="encryptedText"></param>
         /// <param name="privateKey"></param>
         /// <param name="passKey"></param>
         /// <param name="bg"></param>
@@ -154,7 +153,6 @@ namespace RjRegalado.EncryptionHelper
         /// </summary>
         /// <param name="plainText"></param>
         /// <param name="publicKey"></param>
-        /// <param name="privateKey"></param>
         /// <param name="passKey"></param>
         /// <param name="bg"></param>
         public void ExecuteEncrypt(string plainText, string publicKey, string passKey, ref BackgroundWorker bg)
