@@ -33,21 +33,22 @@
             this.txtLogs = new System.Windows.Forms.TextBox();
             this.btnExecute = new System.Windows.Forms.Button();
             this.txtPlainText = new System.Windows.Forms.TextBox();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // progressBar1
             // 
             this.progressBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.progressBar1.Location = new System.Drawing.Point(16, 46);
+            this.progressBar1.Location = new System.Drawing.Point(16, 75);
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(721, 23);
+            this.progressBar1.Size = new System.Drawing.Size(725, 23);
             this.progressBar1.TabIndex = 7;
             // 
             // btnCancel
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCancel.Location = new System.Drawing.Point(662, 19);
+            this.btnCancel.Location = new System.Drawing.Point(662, 46);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 6;
@@ -61,16 +62,16 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtLogs.Font = new System.Drawing.Font("Arial Rounded MT Bold", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtLogs.Location = new System.Drawing.Point(12, 77);
+            this.txtLogs.Location = new System.Drawing.Point(12, 104);
             this.txtLogs.Multiline = true;
             this.txtLogs.Name = "txtLogs";
-            this.txtLogs.Size = new System.Drawing.Size(725, 709);
+            this.txtLogs.Size = new System.Drawing.Size(725, 589);
             this.txtLogs.TabIndex = 5;
             // 
             // btnExecute
             // 
             this.btnExecute.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnExecute.Location = new System.Drawing.Point(581, 19);
+            this.btnExecute.Location = new System.Drawing.Point(581, 46);
             this.btnExecute.Name = "btnExecute";
             this.btnExecute.Size = new System.Drawing.Size(75, 23);
             this.btnExecute.TabIndex = 4;
@@ -83,16 +84,27 @@
             this.txtPlainText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtPlainText.Location = new System.Drawing.Point(16, 19);
+            this.txtPlainText.Multiline = true;
             this.txtPlainText.Name = "txtPlainText";
-            this.txtPlainText.Size = new System.Drawing.Size(559, 20);
+            this.txtPlainText.Size = new System.Drawing.Size(559, 50);
             this.txtPlainText.TabIndex = 8;
             this.txtPlainText.Text = "Sample Text To Encrypt";
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(581, 19);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(156, 21);
+            this.comboBox1.TabIndex = 9;
             // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(751, 798);
+            this.ClientSize = new System.Drawing.Size(751, 705);
+            this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.txtPlainText);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.btnCancel);
@@ -113,6 +125,7 @@
         private System.Windows.Forms.TextBox txtLogs;
         private System.Windows.Forms.Button btnExecute;
         private System.Windows.Forms.TextBox txtPlainText;
+        private System.Windows.Forms.ComboBox comboBox1;
     }
 }
 
