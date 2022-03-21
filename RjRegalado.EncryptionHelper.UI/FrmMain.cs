@@ -42,6 +42,7 @@ namespace RjRegalado.EncryptionHelper.UI
         private void btnExecute_Click(object sender, EventArgs e)
         {
             _selectedOperation = cboOperations.SelectedItem.ToString();
+            cboOperations.Enabled = false;
             btnExecute.Enabled = false;
             btnCancel.Enabled = true;
             txtLogs.Text = "";
@@ -85,6 +86,7 @@ namespace RjRegalado.EncryptionHelper.UI
                 txtLogs.AppendText("--------------------");
                 txtLogs.AppendText(Environment.NewLine);
                 btnExecute.Enabled = true;
+                cboOperations.Enabled = true;
                 btnCancel.Enabled = false;
                 _bg.Dispose();
             };
