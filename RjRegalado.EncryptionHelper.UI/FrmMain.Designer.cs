@@ -33,7 +33,7 @@
             this.txtLogs = new System.Windows.Forms.TextBox();
             this.btnExecute = new System.Windows.Forms.Button();
             this.txtPlainText = new System.Windows.Forms.TextBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.cboOperations = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // progressBar1
@@ -88,23 +88,23 @@
             this.txtPlainText.Name = "txtPlainText";
             this.txtPlainText.Size = new System.Drawing.Size(559, 50);
             this.txtPlainText.TabIndex = 8;
-            this.txtPlainText.Text = "Sample Text To Encrypt";
+            this.txtPlainText.Text = "Input Text";
             // 
-            // comboBox1
+            // cboOperations
             // 
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(581, 19);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(156, 21);
-            this.comboBox1.TabIndex = 9;
+            this.cboOperations.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboOperations.FormattingEnabled = true;
+            this.cboOperations.Location = new System.Drawing.Point(581, 19);
+            this.cboOperations.Name = "cboOperations";
+            this.cboOperations.Size = new System.Drawing.Size(156, 21);
+            this.cboOperations.TabIndex = 9;
             // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(751, 705);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.cboOperations);
             this.Controls.Add(this.txtPlainText);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.btnCancel);
@@ -125,7 +125,7 @@
         private System.Windows.Forms.TextBox txtLogs;
         private System.Windows.Forms.Button btnExecute;
         private System.Windows.Forms.TextBox txtPlainText;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cboOperations;
     }
 }
 

@@ -27,10 +27,18 @@ namespace RjRegalado.EncryptionHelper
         string PlainText { get; set; }
         string PrivateKey { get; set; }
         string PublicKey { get; set; }
+        string EncryptedText { get; set; }
+
         void Decrypt();
-        void Execute(ref BackgroundWorker bg);
-        void Execute(string plainText, string publicKey, string privateKey, string passKey, ref BackgroundWorker bg);
+
         void Encrypt();
+
+        void ExecuteDecrypt(string encryptedText, string privateKey, string passKey, ref BackgroundWorker bg);
+
+        void ExecuteDecrypt(ref BackgroundWorker bg);
+
+        void ExecuteEncrypt(ref BackgroundWorker bg);
+        void ExecuteEncrypt(string plainText, string publicKey, string passKey, ref BackgroundWorker bg);
     }
 
     /// <summary>
@@ -62,54 +70,7 @@ namespace RjRegalado.EncryptionHelper
             if (privateKey == null) this.PlainText = "error";
             if (privateKey == null) return;
             var dataByte = privateKey.Decrypt(bytesData, false);
-            var b64Str = Convert.ToBase64String(dataByte);
-
             this.PlainText = Encoding.UTF8.GetString(dataByte);
-        }
-
-        /// <summary>
-        /// Demonstration of EncryptByCertificate
-        /// </summary>
-        /// <param name="bg"></param>
-        public void Execute(ref BackgroundWorker bg)
-        {
-            if (bg.CancellationPending) return;
-
-            Encrypt();
-            bg.ReportProgress(0, $"Encrypted Text: {this.EncryptedText}");
-
-            if (bg.CancellationPending) return;
-            if (this.EncryptedText == null) return;
-
-            Decrypt();
-            bg.ReportProgress(0, $"Decrypted Text: {this.PlainText}");
-        }
-
-        /// <summary>
-        /// Demonstration of EncryptByCertificate
-        /// </summary>
-        /// <param name="plainText"></param>
-        /// <param name="publicKey"></param>
-        /// <param name="privateKey"></param>
-        /// <param name="passKey"></param>
-        /// <param name="bg"></param>
-        public void Execute(string plainText, string publicKey, string privateKey, string passKey, ref BackgroundWorker bg)
-        {
-            if (bg.CancellationPending) return;
-
-            this.PlainText = plainText;
-            this.PublicKey = publicKey;
-            this.PrivateKey = privateKey;
-            this.Passkey = passKey;
-
-            Encrypt();
-            bg.ReportProgress(0, $"Encrypted Text: {this.EncryptedText}");
-
-            if (bg.CancellationPending) return;
-            if (this.EncryptedText == null) return;
-
-            Decrypt();
-            bg.ReportProgress(0, $"Decrypted Text: {this.PlainText}");
         }
 
         /// <summary>
@@ -140,6 +101,73 @@ namespace RjRegalado.EncryptionHelper
             var cypherText = Convert.ToBase64String(encryptedData);
 
             this.EncryptedText = cypherText;
+        }
+
+        /// <summary>
+        /// Demonstration of EncryptByCertificate
+        /// </summary>
+        /// <param name="bg"></param>
+        public void ExecuteDecrypt(ref BackgroundWorker bg)
+        {
+            if (bg.CancellationPending) return;
+            
+            bg.ReportProgress(0, $"Encrypted Text: {this.EncryptedText}");
+            Decrypt();
+            bg.ReportProgress(0, $"Decrypted Text: {this.PlainText}");
+        }
+
+        /// <summary>
+        /// Demonstration of EncryptByCertificate
+        /// </summary>
+        /// <param name="plainText"></param>
+        /// <param name="publicKey"></param>
+        /// <param name="privateKey"></param>
+        /// <param name="passKey"></param>
+        /// <param name="bg"></param>
+        public void ExecuteDecrypt(string encryptedText, string privateKey, string passKey, ref BackgroundWorker bg)
+        {
+            if (bg.CancellationPending) return;
+
+            this.PlainText = encryptedText;
+            this.PrivateKey = privateKey;
+            this.Passkey = passKey;
+            bg.ReportProgress(0, $"Encrypted Text: {this.EncryptedText}");
+            Decrypt();
+            bg.ReportProgress(0, $"Decrypted Text: {this.PlainText}");
+        }
+
+        /// <summary>
+        /// Demonstration of EncryptByCertificate
+        /// </summary>
+        /// <param name="bg"></param>
+        public void ExecuteEncrypt(ref BackgroundWorker bg)
+        {
+            if (bg.CancellationPending) return;
+
+            bg.ReportProgress(0, $"Pain Text: {this.PlainText}");
+            Encrypt();
+            bg.ReportProgress(0, $"Encrypted Text: {this.EncryptedText}");
+        }
+
+        /// <summary>
+        /// Demonstration of EncryptByCertificate
+        /// </summary>
+        /// <param name="plainText"></param>
+        /// <param name="publicKey"></param>
+        /// <param name="privateKey"></param>
+        /// <param name="passKey"></param>
+        /// <param name="bg"></param>
+        public void ExecuteEncrypt(string plainText, string publicKey, string passKey, ref BackgroundWorker bg)
+        {
+            if (bg.CancellationPending) return;
+
+            this.PlainText = plainText;
+            this.PublicKey = publicKey;
+            this.Passkey = passKey;
+
+            bg.ReportProgress(0, $"Pain Text: {this.PlainText}");
+            Encrypt();
+            bg.ReportProgress(0, $"Encrypted Text: {this.EncryptedText}");
         }
 
         /// <summary>

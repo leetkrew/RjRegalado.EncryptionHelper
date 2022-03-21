@@ -17,8 +17,8 @@ namespace RjRegalado.EncryptionHelper.UI.Helpers
 
         public enum OperationMethods
         {
-            [Description("Certificate (encrypt)")] EncryptByCertificate = 1,
-            [Description("Certificate (decrypt)")] DecryptByCertificate = 2,
+            [Description("Encrypt by Certificate")] EncryptByCertificate = 1,
+            [Description("Decrypt by Certificate")] DecryptByCertificate = 2,
         }
 
         public enum ListAll

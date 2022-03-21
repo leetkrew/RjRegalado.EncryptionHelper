@@ -41,9 +41,10 @@ namespace RjRegalado.EncryptionHelper.UI
         /// <param name="e"></param>
         private void btnExecute_Click(object sender, EventArgs e)
         {
-            _selectedOperation = comboBox1.SelectedItem.ToString();
+            _selectedOperation = cboOperations.SelectedItem.ToString();
             btnExecute.Enabled = false;
             btnCancel.Enabled = true;
+            txtLogs.Text = "";
             _bg.RunWorkerAsync();
         }
 
@@ -57,10 +58,10 @@ namespace RjRegalado.EncryptionHelper.UI
             _operations = EnumHelper.ToList<EnumHelper.OperationMethods>();
             foreach (var item in _operations)
             {
-                comboBox1.Items.Add(item.Description);
+                cboOperations.Items.Add(item.Description);
             }
 
-            comboBox1.SelectedItem = _operations.First().Description;
+            cboOperations.SelectedItem = _operations.First().Description;
 
 
             btnCancel.Enabled = false;
@@ -103,10 +104,19 @@ namespace RjRegalado.EncryptionHelper.UI
                             {
                                 demo.PlainText = txtPlainText.Text;
                                 demo.PublicKey = "./Certificates/EncryptByCertificate/public.crt";
+                                demo.Passkey = "password";
+                                demo.ExecuteEncrypt(ref _bg);
+                                //demo.ExecuteEncrypt(txtPlainText.Text, "./Certificates/EncryptByCertificate/public.crt", "password", ref _bg);
+                            }
+                            break;
+                        case (int)EnumHelper.OperationMethods.DecryptByCertificate:
+                            using (IEncryptByCertificate demo = new EncryptByCertificate())
+                            {
+                                demo.EncryptedText = txtPlainText.Text;
                                 demo.PrivateKey = "./Certificates/EncryptByCertificate/cert.pfx";
                                 demo.Passkey = "password";
-                                demo.Execute(ref _bg);
-                                //demo.Execute(txtPlainText.Text, "./Certificates/EncryptByCertificate/public.crt", "./Certificates/EncryptByCertificate/cert.pfx", "password", ref _bg);
+                                demo.ExecuteDecrypt(ref _bg);
+                                //demo.ExecuteDecrypt(txtPlainText.Text, "./Certificates/EncryptByCertificate/cert.pfx", "password", ref _bg);
                             }
                             break;
                         default:
