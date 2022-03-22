@@ -3,13 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 
-namespace RjRegalado.EncryptionHelper.UI.Helpers
+namespace RjRegalado.EncryptionHelper.Helpers
 {
-
     public interface IEnumHelper
     {
-        
-        
+
     }
 
     public class EnumHelper : IEnumHelper
@@ -108,7 +106,7 @@ namespace RjRegalado.EncryptionHelper.UI.Helpers
             }
 
             var result = new List<EnumHelper>();
-            
+
             for (var i = 0; i <= keysArray.Length - 1; i++)
             {
                 result.Add(new EnumHelper()

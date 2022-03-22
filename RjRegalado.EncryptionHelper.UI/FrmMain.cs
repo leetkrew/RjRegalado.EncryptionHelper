@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
-using RjRegalado.EncryptionHelper.UI.Helpers;
+using RjRegalado.EncryptionHelper.Helpers;
 
 namespace RjRegalado.EncryptionHelper.UI
 {
