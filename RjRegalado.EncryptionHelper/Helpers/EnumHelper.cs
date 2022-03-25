@@ -113,8 +113,8 @@ namespace RjRegalado.EncryptionHelper.Helpers
             {
                 result.Add(new EnumHelper()
                 {
-                    Description = keysDescriptionArray[i].Split(new char[] {'|'}, StringSplitOptions.RemoveEmptyEntries).First(),
-                    Tags = keysDescriptionArray[i].Split(new char[] { '|' }, StringSplitOptions.RemoveEmptyEntries).Last(),
+                    Description = keysDescriptionArray[i].Split(new[] {'|'}, StringSplitOptions.RemoveEmptyEntries).First(),
+                    Tags = keysDescriptionArray[i].Split(new[] { '|' }, StringSplitOptions.RemoveEmptyEntries).Last(),
                     Name = keysArray[i],
                     Id = valuesArray[i]
                 });

@@ -275,6 +275,11 @@ namespace RjRegalado.EncryptionHelper.UI
             Properties.Settings.Default.Save();
         }
 
+        /// <summary>
+        /// Enable and Disable fields
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void cboOperations_SelectedIndexChanged(object sender, EventArgs e)
         {
             _selectedOperation = cboOperations.SelectedItem.ToString();
@@ -286,8 +291,6 @@ namespace RjRegalado.EncryptionHelper.UI
             txtPrivateKey.Enabled = !tags.Contains("NO_PRIVATE_KEY");
             txtPublicKey.Enabled = !tags.Contains("NO_PUBLIC_KEY");
             txtPassPhrase.Enabled = !tags.Contains("NO_PASS_PHRASE");
-
-
         }
     }
 }
