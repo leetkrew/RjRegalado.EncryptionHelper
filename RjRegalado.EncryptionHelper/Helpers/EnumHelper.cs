@@ -15,10 +15,11 @@ namespace RjRegalado.EncryptionHelper.Helpers
 
         public enum OperationMethods
         {
-            [Description("Encrypt by Certificate")] EncryptByCertificate = 1,
-            [Description("Decrypt by Certificate")] DecryptByCertificate = 2,
-            [Description("Encrypt by TripleDes")] EncryptByTripleDes = 3,
-            [Description("Decrypt by TripleDes")] DecryptByTripleDes = 4,
+            [Description("Encrypt by Certificate|NO_IV NO_PRIVATE_KEY")] EncryptByCertificate = 1,
+            [Description("Decrypt by Certificate|NO_IV NO_PUBLIC_KEY")] DecryptByCertificate = 2,
+            [Description("Encrypt by TripleDes|NO_PUBLIC_KEY NO_PRIVATE_KEY")] EncryptByTripleDes = 3,
+            [Description("Decrypt by TripleDes|NO_PUBLIC_KEY NO_PRIVATE_KEY")] DecryptByTripleDes = 4,
+            [Description("MD5|NO_PUBLIC_KEY NO_PRIVATE_KEY NO_IV NO_PASS_PHRASE")] Md5 = 5,
         }
 
         public enum ListAll
@@ -30,6 +31,7 @@ namespace RjRegalado.EncryptionHelper.Helpers
 
         public string Name { get; set; }
         public string Description { get; set; }
+        public string Tags { get; set; }
 
         public static string GetEnumDescription(Enum value)
         {
@@ -111,7 +113,8 @@ namespace RjRegalado.EncryptionHelper.Helpers
             {
                 result.Add(new EnumHelper()
                 {
-                    Description = keysDescriptionArray[i],
+                    Description = keysDescriptionArray[i].Split(new char[] {'|'}, StringSplitOptions.RemoveEmptyEntries).First(),
+                    Tags = keysDescriptionArray[i].Split(new char[] { '|' }, StringSplitOptions.RemoveEmptyEntries).Last(),
                     Name = keysArray[i],
                     Id = valuesArray[i]
                 });
