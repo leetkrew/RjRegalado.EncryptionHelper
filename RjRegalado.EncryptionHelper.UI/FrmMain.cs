@@ -176,6 +176,7 @@ namespace RjRegalado.EncryptionHelper.UI
                 btnExecute.Enabled = true;
                 cboOperations.Enabled = true;
                 btnCancel.Enabled = false;
+                txtResult.Focus();
                 _bg.Dispose();
             };
 
@@ -245,7 +246,7 @@ namespace RjRegalado.EncryptionHelper.UI
                             }
                             break;
                         default:
-                            throw new Exception("Not implemented");
+                            throw new Exception("The selected method is not yet implemented");
                     }
                 }
                 catch (Exception ex)
@@ -254,6 +255,7 @@ namespace RjRegalado.EncryptionHelper.UI
                 }
             };
         }
+
         /// <summary>
         /// Automatically saves the Input Text field changes
         /// </summary>
