@@ -15,11 +15,13 @@ namespace RjRegalado.EncryptionHelper.Helpers
 
         public enum OperationMethods
         {
-            [Description("Encrypt by Certificate|NO_IV NO_PRIVATE_KEY")] EncryptByCertificate = 1,
-            [Description("Decrypt by Certificate|NO_IV NO_PUBLIC_KEY")] DecryptByCertificate = 2,
-            [Description("Encrypt by TripleDes|NO_PUBLIC_KEY NO_PRIVATE_KEY")] EncryptByTripleDes = 3,
-            [Description("Decrypt by TripleDes|NO_PUBLIC_KEY NO_PRIVATE_KEY")] DecryptByTripleDes = 4,
-            [Description("MD5|NO_PUBLIC_KEY NO_PRIVATE_KEY NO_IV NO_PASS_PHRASE")] Md5 = 5,
+            [Description(@"Certificate (Encrypt)" + "|NO_IV NO_PRIVATE_KEY")] EncryptByCertificate = 1,
+            [Description("Certificate (Decrypt)|NO_IV NO_PUBLIC_KEY")] DecryptByCertificate = 2,
+            [Description("TripleDes (Encrypt)|NO_PUBLIC_KEY NO_PRIVATE_KEY")] EncryptByTripleDes = 3,
+            [Description("TripleDes (Decrypt)|NO_PUBLIC_KEY NO_PRIVATE_KEY")] DecryptByTripleDes = 4,
+            [Description("MD5|NO_PUBLIC_KEY NO_PRIVATE_KEY NO_IV NO_PASS_PHRASE NO_SWAP")] Md5 = 5,
+            [Description("Base64 (Encode)|NO_PUBLIC_KEY NO_PRIVATE_KEY NO_IV NO_PASS_PHRASE")] Base64Encode = 6,
+            [Description("Base64 (Decode)|NO_PUBLIC_KEY NO_PRIVATE_KEY NO_IV NO_PASS_PHRASE")] Base64Decode = 7,
         }
 
         public enum ListAll
