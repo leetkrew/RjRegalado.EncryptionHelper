@@ -106,9 +106,8 @@ namespace RjRegalado.EncryptionHelper
         {
             if (bg.CancellationPending) return;
             
-            bg.ReportProgress(0, $"Encrypted Text: {this.EncryptedText}");
             Decrypt();
-            bg.ReportProgress(0, $"Decrypted Text: {this.PlainText}");
+            bg.ReportProgress(100, this.PlainText.Trim());
         }
 
         /// <summary>
@@ -138,9 +137,8 @@ namespace RjRegalado.EncryptionHelper
         {
             if (bg.CancellationPending) return;
 
-            bg.ReportProgress(0, $"Pain Text: {this.PlainText}");
             Encrypt();
-            bg.ReportProgress(0, $"Encrypted Text: {this.EncryptedText}");
+            bg.ReportProgress(100, this.EncryptedText.Trim());
         }
 
         /// <summary>

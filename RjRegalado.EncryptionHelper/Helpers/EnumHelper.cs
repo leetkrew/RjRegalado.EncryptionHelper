@@ -3,13 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 
-namespace RjRegalado.EncryptionHelper.UI.Helpers
+namespace RjRegalado.EncryptionHelper.Helpers
 {
-
     public interface IEnumHelper
     {
-        
-        
+
     }
 
     public class EnumHelper : IEnumHelper
@@ -17,10 +15,13 @@ namespace RjRegalado.EncryptionHelper.UI.Helpers
 
         public enum OperationMethods
         {
-            [Description("Encrypt by Certificate")] EncryptByCertificate = 1,
-            [Description("Decrypt by Certificate")] DecryptByCertificate = 2,
-            [Description("Encrypt by TripleDes")] EncryptByTripleDes = 3,
-            [Description("Decrypt by TripleDes")] DecryptByTripleDes = 4,
+            [Description(@"Certificate (Encrypt)" + "|NO_IV NO_PRIVATE_KEY")] EncryptByCertificate = 1,
+            [Description("Certificate (Decrypt)|NO_IV NO_PUBLIC_KEY")] DecryptByCertificate = 2,
+            [Description("TripleDes (Encrypt)|NO_PUBLIC_KEY NO_PRIVATE_KEY")] EncryptByTripleDes = 3,
+            [Description("TripleDes (Decrypt)|NO_PUBLIC_KEY NO_PRIVATE_KEY")] DecryptByTripleDes = 4,
+            [Description("MD5|NO_PUBLIC_KEY NO_PRIVATE_KEY NO_IV NO_PASS_PHRASE NO_SWAP")] Md5 = 5,
+            [Description("Base64 (Encode)|NO_PUBLIC_KEY NO_PRIVATE_KEY NO_IV NO_PASS_PHRASE")] Base64Encode = 6,
+            [Description("Base64 (Decode)|NO_PUBLIC_KEY NO_PRIVATE_KEY NO_IV NO_PASS_PHRASE")] Base64Decode = 7,
         }
 
         public enum ListAll
@@ -32,6 +33,7 @@ namespace RjRegalado.EncryptionHelper.UI.Helpers
 
         public string Name { get; set; }
         public string Description { get; set; }
+        public string Tags { get; set; }
 
         public static string GetEnumDescription(Enum value)
         {
@@ -108,12 +110,13 @@ namespace RjRegalado.EncryptionHelper.UI.Helpers
             }
 
             var result = new List<EnumHelper>();
-            
+
             for (var i = 0; i <= keysArray.Length - 1; i++)
             {
                 result.Add(new EnumHelper()
                 {
-                    Description = keysDescriptionArray[i],
+                    Description = keysDescriptionArray[i].Split(new[] {'|'}, StringSplitOptions.RemoveEmptyEntries).First(),
+                    Tags = keysDescriptionArray[i].Split(new[] { '|' }, StringSplitOptions.RemoveEmptyEntries).Last(),
                     Name = keysArray[i],
                     Id = valuesArray[i]
                 });
