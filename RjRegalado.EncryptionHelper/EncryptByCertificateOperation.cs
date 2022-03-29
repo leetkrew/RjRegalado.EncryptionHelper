@@ -21,7 +21,7 @@ namespace RjRegalado.EncryptionHelper
             openssl pkcs12 -in cert.pfx -clcerts -nokeys -out public.crt
     */
 
-    public interface IEncryptByCertificate : IDisposable
+    public interface IEncryptByCertificateOperation : IDisposable
     {
         string Passkey { get; set; }
         string PlainText { get; set; }
@@ -39,7 +39,7 @@ namespace RjRegalado.EncryptionHelper
     /// <summary>
     /// Provides common methods for encrypting and decrypting plain text using public and private keys
     /// </summary>
-    public class EncryptByCertificate : IEncryptByCertificate
+    public class EncryptByCertificateOperation : IEncryptByCertificateOperation
     {
         private readonly SafeHandle _safeHandle = new SafeFileHandle(IntPtr.Zero, true);
         private bool _disposedValue;

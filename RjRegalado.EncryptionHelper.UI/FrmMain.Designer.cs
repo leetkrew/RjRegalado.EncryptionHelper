@@ -49,6 +49,7 @@
             this.txtIv = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.btnSwap = new System.Windows.Forms.Button();
+            this.btnClear = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // progressBar1
@@ -76,10 +77,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtResult.Font = new System.Drawing.Font("Arial Rounded MT Bold", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtResult.Location = new System.Drawing.Point(16, 408);
+            this.txtResult.Location = new System.Drawing.Point(16, 416);
             this.txtResult.Multiline = true;
             this.txtResult.Name = "txtResult";
-            this.txtResult.Size = new System.Drawing.Size(720, 477);
+            this.txtResult.Size = new System.Drawing.Size(720, 141);
             this.txtResult.TabIndex = 13;
             // 
             // btnExecute
@@ -146,7 +147,7 @@
             // 
             // label4
             // 
-            this.label4.Location = new System.Drawing.Point(16, 384);
+            this.label4.Location = new System.Drawing.Point(16, 392);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(80, 18);
             this.label4.TabIndex = 13;
@@ -261,11 +262,23 @@
             this.btnSwap.UseVisualStyleBackColor = true;
             this.btnSwap.Click += new System.EventHandler(this.btnSwap_Click);
             // 
+            // btnClear
+            // 
+            this.btnClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnClear.Location = new System.Drawing.Point(656, 376);
+            this.btnClear.Name = "btnClear";
+            this.btnClear.Size = new System.Drawing.Size(75, 32);
+            this.btnClear.TabIndex = 24;
+            this.btnClear.Text = "Clear";
+            this.btnClear.UseVisualStyleBackColor = true;
+            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
+            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(746, 897);
+            this.ClientSize = new System.Drawing.Size(746, 569);
+            this.Controls.Add(this.btnClear);
             this.Controls.Add(this.btnSwap);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.txtIv);
@@ -287,7 +300,7 @@
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.txtResult);
             this.Controls.Add(this.btnExecute);
-            this.MinimumSize = new System.Drawing.Size(762, 39);
+            this.MinimumSize = new System.Drawing.Size(762, 200);
             this.Name = "FrmMain";
             this.Text = "Encryption Helper (By RJ Regalado)";
             this.Load += new System.EventHandler(this.FrmMain_Load);
@@ -323,6 +336,7 @@
         private System.Windows.Forms.TextBox txtIv;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Button btnSwap;
+        private System.Windows.Forms.Button btnClear;
     }
 }
 

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace RjRegalado.EncryptionHelper
 {
-    public interface IMd5Hash : IDisposable
+    public interface IMd5HashOperation : IDisposable
     {
         string PlainText { get; set; }
         string EncryptedText { get; set; }
@@ -13,7 +13,7 @@ namespace RjRegalado.EncryptionHelper
         void Encrypt();
     }
 
-    public class Md5Hash : IMd5Hash
+    public class Md5HashOperation : IMd5HashOperation
     {
         public string PlainText { get; set; }
         public string EncryptedText { get; set; }

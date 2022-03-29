@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Windows.Forms;
 using RjRegalado.EncryptionHelper.Helpers;
 
@@ -115,6 +116,9 @@ namespace RjRegalado.EncryptionHelper.UI
         {
             _selectedOperation = cboOperations.SelectedItem.ToString();
 
+            Properties.Settings.Default.SelectedOperation = _selectedOperation;
+            Properties.Settings.Default.Save();
+
             var tags = _operations.First(x => x.Description == _selectedOperation)
                 .Tags;
 
@@ -125,6 +129,8 @@ namespace RjRegalado.EncryptionHelper.UI
             btnBrowsePrivateKey.Enabled = !tags.Contains("NO_PRIVATE_KEY");
             btnBrowsePublicKey.Enabled = !tags.Contains("NO_PUBLIC_KEY");
             btnSwap.Enabled = !tags.Contains("NO_SWAP");
+
+            
         }
 
         /// <summary>
@@ -140,7 +146,7 @@ namespace RjRegalado.EncryptionHelper.UI
                 cboOperations.Items.Add(item.Description);
             }
 
-            cboOperations.SelectedItem = _operations.First().Description;
+            cboOperations.SelectedItem = string.IsNullOrEmpty(Properties.Settings.Default.SelectedOperation) ? _operations.First().Description : Properties.Settings.Default.SelectedOperation;
 
             /*
                 Defaults:
@@ -189,7 +195,7 @@ namespace RjRegalado.EncryptionHelper.UI
                     switch (selectedId)
                     {
                         case (int)EnumHelper.OperationMethods.EncryptByCertificate:
-                            using (IEncryptByCertificate demo = new EncryptByCertificate())
+                            using (IEncryptByCertificateOperation demo = new EncryptByCertificateOperation())
                             {
                                 demo.PlainText = txtInputText.Text;
                                 demo.PublicKey = txtPublicKey.Text;
@@ -198,7 +204,7 @@ namespace RjRegalado.EncryptionHelper.UI
                             }
                             break;
                         case (int)EnumHelper.OperationMethods.DecryptByCertificate:
-                            using (IEncryptByCertificate demo = new EncryptByCertificate())
+                            using (IEncryptByCertificateOperation demo = new EncryptByCertificateOperation())
                             {
                                 demo.EncryptedText = txtInputText.Text;
                                 demo.PrivateKey = txtPrivateKey.Text;
@@ -207,7 +213,7 @@ namespace RjRegalado.EncryptionHelper.UI
                             }
                             break;
                         case (int)EnumHelper.OperationMethods.EncryptByTripleDes:
-                            using (ITripleDes demo = new TripleDes())
+                            using (ITripleDesOperation demo = new TripleDesOperation())
                             {
                                 demo.PlainText = txtInputText.Text;
                                 demo.Passkey = txtPassPhrase.Text;
@@ -216,7 +222,7 @@ namespace RjRegalado.EncryptionHelper.UI
                             }
                             break;
                         case (int)EnumHelper.OperationMethods.DecryptByTripleDes:
-                            using (ITripleDes demo = new TripleDes())
+                            using (ITripleDesOperation demo = new TripleDesOperation())
                             {
                                 demo.EncryptedText = txtInputText.Text;
                                 demo.Passkey = txtPassPhrase.Text;
@@ -225,22 +231,38 @@ namespace RjRegalado.EncryptionHelper.UI
                             }
                             break;
                         case (int)EnumHelper.OperationMethods.Md5:
-                            using (IMd5Hash demo = new Md5Hash())
+                            using (IMd5HashOperation demo = new Md5HashOperation())
                             {
                                 demo.PlainText = txtInputText.Text;
                                 demo.ExecuteEncrypt(ref _bg);
                             }
                             break;
                         case (int)EnumHelper.OperationMethods.Base64Encode:
-                            using (IBase64 demo = new Base64())
+                            using (IBase64Operation demo = new Base64Operation())
                             {
                                 demo.PlainText = txtInputText.Text;
                                 demo.ExecuteEncrypt(ref _bg);
                             }
                             break;
                         case (int)EnumHelper.OperationMethods.Base64Decode:
-                            using (IBase64 demo = new Base64())
+                            using (IBase64Operation demo = new Base64Operation())
                             {
+                                demo.EncryptedText = txtInputText.Text;
+                                demo.ExecuteDecrypt(ref _bg);
+                            }
+                            break;
+                        case (int)EnumHelper.OperationMethods.AesEncrypt:
+                            using (IAesOperation demo = new AesOperation())
+                            {
+                                demo.Key = txtPassPhrase.Text;
+                                demo.PlainText = txtInputText.Text;
+                                demo.ExecuteEncrypt(ref _bg);
+                            }
+                            break;
+                        case (int)EnumHelper.OperationMethods.AesDecrypt:
+                            using (IAesOperation demo = new AesOperation())
+                            {
+                                demo.Key = txtPassPhrase.Text;
                                 demo.EncryptedText = txtInputText.Text;
                                 demo.ExecuteDecrypt(ref _bg);
                             }
@@ -251,7 +273,7 @@ namespace RjRegalado.EncryptionHelper.UI
                 }
                 catch (Exception ex)
                 {
-                    _bg.ReportProgress(0, ex.Message);
+                    _bg.ReportProgress(0, $"ERROR: {ex.Message}");
                 }
             };
         }
@@ -309,6 +331,11 @@ namespace RjRegalado.EncryptionHelper.UI
         {
             Properties.Settings.Default.PublicKey = txtPublicKey.Text;
             Properties.Settings.Default.Save();
+        }
+
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            txtResult.Text = string.Empty;
         }
     }
 }
