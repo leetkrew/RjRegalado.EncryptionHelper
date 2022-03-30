@@ -43,9 +43,9 @@ namespace RjRegalado.EncryptionHelper
 
                 using (var memoryStream = new MemoryStream(buffer))
                 {
-                    using (var cryptoStream = new CryptoStream((Stream)memoryStream, decryptor, CryptoStreamMode.Read))
+                    using (var cryptoStream = new CryptoStream(memoryStream, decryptor, CryptoStreamMode.Read))
                     {
-                        using (var streamReader = new StreamReader((Stream)cryptoStream))
+                        using (var streamReader = new StreamReader(cryptoStream))
                         {
                             this.PlainText = streamReader.ReadToEnd();
                         }
@@ -82,9 +82,9 @@ namespace RjRegalado.EncryptionHelper
 
                 using (var memoryStream = new MemoryStream())
                 {
-                    using (var cryptoStream = new CryptoStream((Stream)memoryStream, encryptor, CryptoStreamMode.Write))
+                    using (var cryptoStream = new CryptoStream(memoryStream, encryptor, CryptoStreamMode.Write))
                     {
-                        using (var streamWriter = new StreamWriter((Stream)cryptoStream))
+                        using (var streamWriter = new StreamWriter(cryptoStream))
                         {
                             streamWriter.Write(this.PlainText);
                         }
