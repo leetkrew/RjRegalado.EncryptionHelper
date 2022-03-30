@@ -237,6 +237,14 @@ namespace RjRegalado.EncryptionHelper.UI
                                 demo.ExecuteEncrypt(ref _bg);
                             }
                             break;
+                        case (int)EnumHelper.OperationMethods.Md5Lc:
+                            using (IMd5HashOperation demo = new Md5HashOperation())
+                            {
+                                demo.LoweCase = true;
+                                demo.PlainText = txtInputText.Text;
+                                demo.ExecuteEncrypt(ref _bg);
+                            }
+                            break;
                         case (int)EnumHelper.OperationMethods.Base64Encode:
                             using (IBase64Operation demo = new Base64Operation())
                             {

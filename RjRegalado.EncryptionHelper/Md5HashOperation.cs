@@ -7,26 +7,38 @@ namespace RjRegalado.EncryptionHelper
 {
     public interface IMd5HashOperation : IDisposable
     {
-        string PlainText { get; set; }
         string EncryptedText { get; set; }
-        void ExecuteEncrypt(ref BackgroundWorker bg);
+        bool LoweCase { get; set; }
+        string PlainText { get; set; }
         void Encrypt();
+
+        void ExecuteEncrypt(ref BackgroundWorker bg);
     }
 
     public class Md5HashOperation : IMd5HashOperation
     {
-        public string PlainText { get; set; }
-        public string EncryptedText { get; set; }
-
         private bool _disposedValue;
+        public string EncryptedText { get; set; }
+        public bool LoweCase { get; set; }
+        public string PlainText { get; set; }
 
+        public Md5HashOperation()
+        {
+            this.LoweCase = false;
+        }
+
+        public void Dispose()
+        {
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
+        }
 
         public void Encrypt()
         {
             using (var md5 = MD5.Create())
             {
                 var byteHash = md5.ComputeHash(Encoding.UTF8.GetBytes(this.PlainText));
-                this.EncryptedText = BitConverter.ToString(byteHash).Replace("-", "");
+                this.EncryptedText = this.LoweCase ? BitConverter.ToString(byteHash).Replace("-", "").ToLower() : BitConverter.ToString(byteHash).Replace("-", "");
             }
         }
 
@@ -51,12 +63,6 @@ namespace RjRegalado.EncryptionHelper
             this.PlainText = null;
             this.EncryptedText = null;
             _disposedValue = true;
-        }
-
-        public void Dispose()
-        {
-            Dispose(disposing: true);
-            GC.SuppressFinalize(this);
         }
     }
 }
