@@ -7,6 +7,11 @@ namespace RjRegalado.EncryptionHelper.Helpers
 {
     public interface IEnumHelper
     {
+        int Id { get; set; }
+
+        string Name { get; set; }
+        string Description { get; set; }
+        string Tags { get; set; }
 
     }
 

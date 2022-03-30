@@ -73,7 +73,7 @@ namespace RjRegalado.EncryptionHelper
                 }
                 catch
                 {
-                    throw new Exception("Invalid Key");
+                    throw new Exception("Invalid AES Key format");
                 }
 
                 aes.IV = iv;
