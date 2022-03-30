@@ -82,5 +82,17 @@ namespace RjRegalado.EncryptionHelper.UI.Properties {
                 this["Iv"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string SelectedOperation {
+            get {
+                return ((string)(this["SelectedOperation"]));
+            }
+            set {
+                this["SelectedOperation"] = value;
+            }
+        }
     }
 }

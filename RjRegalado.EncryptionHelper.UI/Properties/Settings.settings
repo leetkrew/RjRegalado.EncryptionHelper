@@ -17,5 +17,8 @@
     <Setting Name="Iv" Type="System.String" Scope="User">
       <Value Profile="(Default)">password</Value>
     </Setting>
+    <Setting Name="SelectedOperation" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

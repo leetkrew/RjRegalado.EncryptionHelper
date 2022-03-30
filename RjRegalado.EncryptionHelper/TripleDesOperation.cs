@@ -2,13 +2,16 @@
 using System;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace RjRegalado.EncryptionHelper
 {
-    public interface IBase64 : IDisposable
+    public interface ITripleDesOperation : IDisposable
     {
         string EncryptedText { get; set; }
-        
+        string Iv { get; set; }
+        string Passkey { get; set; }
         string PlainText { get; set; }
         void Decrypt();
         void Encrypt();
@@ -16,25 +19,52 @@ namespace RjRegalado.EncryptionHelper
         void ExecuteDecrypt(ref BackgroundWorker bg);
         void ExecuteEncrypt(ref BackgroundWorker bg);
         void ExecuteEncrypt(string plainText, string passKey, string iv, ref BackgroundWorker bg);
-
     }
 
-    public class Base64 : IBase64
-    
+    /// <summary>
+    /// Provides common methods for encrypting and decrypting plain text using triple des
+    /// </summary>
+    public class TripleDesOperation : ITripleDesOperation
     {
         private readonly SafeHandle _safeHandle = new SafeFileHandle(IntPtr.Zero, true);
         private bool _disposedValue;
-
-        public string PlainText { get; set; }
         public string EncryptedText { get; set; }
+        public string Iv { get; set; }
+        public string Passkey { get; set; }
+        public string PlainText { get; set; }
 
         /// <summary>
         /// Decrypts text using triple des algorithm
         /// </summary>
         public void Decrypt()
         {
-            var base64EncodedBytes = System.Convert.FromBase64String(this.EncryptedText);
-            this.PlainText = System.Text.Encoding.UTF8.GetString(base64EncodedBytes);
+            byte[] results;
+            var utf8 = new UTF8Encoding();
+
+            var hashProvider = new MD5CryptoServiceProvider();
+            var tripDes = new TripleDESCryptoServiceProvider();
+
+            var tDesKey = hashProvider.ComputeHash(Encoding.UTF8.GetBytes(this.Passkey)); 
+
+            tripDes.Key = tDesKey;
+            tripDes.IV = utf8.GetBytes(this.Iv);
+            tripDes.Mode = CipherMode.CBC;
+            tripDes.Padding = PaddingMode.Zeros;
+            
+            var enc = tripDes.CreateDecryptor();
+            var data = Convert.FromBase64String(this.EncryptedText);
+
+            try
+            {
+                results = enc.TransformFinalBlock(data, 0, data.Length);
+            }
+            finally
+            {
+                tripDes.Clear();
+                hashProvider.Clear();
+            }
+
+            this.PlainText = utf8.GetString(results);
         }
 
         /// <summary>
@@ -52,8 +82,32 @@ namespace RjRegalado.EncryptionHelper
         /// <returns></returns>
         public void Encrypt()
         {
-            var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(this.PlainText);
-            this.EncryptedText = System.Convert.ToBase64String(plainTextBytes);
+            byte[] results;
+            var utf8 = new UTF8Encoding();
+
+            var hashProvider = new MD5CryptoServiceProvider();
+            var tripDes = new TripleDESCryptoServiceProvider();
+
+            var tDesKey = hashProvider.ComputeHash(Encoding.UTF8.GetBytes(this.Passkey)); 
+
+            tripDes.Key = tDesKey;
+            tripDes.IV = utf8.GetBytes(this.Iv);
+            tripDes.Mode = CipherMode.CBC;
+            tripDes.Padding = PaddingMode.Zeros;
+
+            var enc = tripDes.CreateEncryptor();
+            var data = utf8.GetBytes(this.PlainText);
+
+            try
+            {
+                results = enc.TransformFinalBlock(data, 0, data.Length);
+            }
+            finally
+            {
+                tripDes.Clear();
+                hashProvider.Clear();
+            }
+            this.EncryptedText = Convert.ToBase64String(results);
         }
 
         /// <summary>
@@ -80,6 +134,8 @@ namespace RjRegalado.EncryptionHelper
             if (bg.CancellationPending) return;
 
             this.PlainText = plainText;
+            this.Passkey = passKey;
+            this.Iv = iv;
             bg.ReportProgress(0, this.EncryptedText);
             Decrypt();
             bg.ReportProgress(100, this.PlainText);
@@ -109,6 +165,8 @@ namespace RjRegalado.EncryptionHelper
             if (bg.CancellationPending) return;
 
             this.PlainText = plainText;
+            this.Passkey = passKey;
+            this.Iv = iv;
             bg.ReportProgress(0, this.PlainText);
             Encrypt();
             bg.ReportProgress(100, this.EncryptedText);
@@ -128,6 +186,7 @@ namespace RjRegalado.EncryptionHelper
             }
 
             this.EncryptedText = null;
+            this.Passkey = null;
             this.PlainText = null;
             _disposedValue = true;
         }

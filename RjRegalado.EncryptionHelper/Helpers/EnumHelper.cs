@@ -22,6 +22,8 @@ namespace RjRegalado.EncryptionHelper.Helpers
             [Description("MD5|NO_PUBLIC_KEY NO_PRIVATE_KEY NO_IV NO_PASS_PHRASE NO_SWAP")] Md5 = 5,
             [Description("Base64 (Encode)|NO_PUBLIC_KEY NO_PRIVATE_KEY NO_IV NO_PASS_PHRASE")] Base64Encode = 6,
             [Description("Base64 (Decode)|NO_PUBLIC_KEY NO_PRIVATE_KEY NO_IV NO_PASS_PHRASE")] Base64Decode = 7,
+            [Description("AES (Encrypt)|NO_PUBLIC_KEY NO_PRIVATE_KEY NO_IV")] AesEncrypt = 8,
+            [Description("AES (Decrypt)|NO_PUBLIC_KEY NO_PRIVATE_KEY NO_IV")] AesDecrypt = 9,
         }
 
         public enum ListAll
