@@ -2,6 +2,9 @@ Encryption and Decryption using C#
 
 EncryptionHelper is a library that provides an interface to encrypt and decrypt plain text. Written by a Filipino developer, RJ Regalado (www.rjregalado.com).
 
+March 29, 2022
+- Added AES Encryption / Decryption
+
 March 28, 2022
 - Added Base64 encode and decode
 - Added MD5
